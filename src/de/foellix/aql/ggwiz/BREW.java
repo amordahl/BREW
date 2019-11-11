@@ -77,7 +77,8 @@ public class BREW {
 			for (int i = 0; i < args.length; i++) {
 				if (args[i].equals("-nogui")) {
 					nogui = true;
-				} else if (args[i].equals("-backup") || args[i].equals("-bak") || args[i].equals("-b")) {
+				}
+				if (args[i].equals("-backup") || args[i].equals("-bak") || args[i].equals("-b")) {
 					// do nothing
 				} else if (args[i].equals("-reset") || args[i].equals("-re") || args[i].equals("-r")) {
 					BackupAndReset.reset();
