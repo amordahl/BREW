@@ -37,7 +37,7 @@ public class Data implements Serializable {
 	private transient ObservableList<TPFP> tpfps;
 	private Map<Testcase, List<SourceOrSink>> map;
 	private Map<SourceOrSink, Testcase> mapR;
-
+	private static String defaultFile = "/home/reprodroid/reprodroid/amordahl-BREW/BREW/data/data.ser";
 	private transient static Data instance = null;
 
 	private File currentSaveFile, lastLoadedFile, lastLoadedFolder;
@@ -54,7 +54,7 @@ public class Data implements Serializable {
 		this.map = new HashMap<>();
 		this.mapR = new HashMap<>();
 
-		this.currentSaveFile = new File("data/data.ser");
+		this.currentSaveFile = new File(Data.defaultFile);
 		this.lastLoadedFile = new File("./doesNotExist.apk");
 		this.lastLoadedFolder = new File(".");
 	}
@@ -70,7 +70,7 @@ public class Data implements Serializable {
 		instance = load();
 		if (instance != null) {
 			if (instance.currentSaveFile == null || !instance.currentSaveFile.exists()) {
-				instance.currentSaveFile = new File("data/data.ser");
+				instance.currentSaveFile = new File(Data.defaultFile);
 			}
 			if (instance.testcaseList != null) {
 				instance.testcases = FXCollections.observableArrayList(instance.testcaseList);
@@ -210,7 +210,7 @@ public class Data implements Serializable {
 	}
 
 	public static Data load() {
-		return load((instance == null ? new File("data/data.ser") : instance.currentSaveFile));
+		return load((instance == null ? new File(Data.defaultFile) : instance.currentSaveFile));
 	}
 
 	public static Data load(File loadFile) {

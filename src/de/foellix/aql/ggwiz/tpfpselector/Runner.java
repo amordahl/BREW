@@ -169,6 +169,8 @@ public class Runner implements IAnswerAvailable {
 
 		new Thread(() -> {
 			for (final TPFP tpfp : tpfps) {
+				Log.msg("--BEGIN RUN--", Log.NORMAL);
+				Log.msg("TruePositive(" + tpfp.isTruepositive() + ")", Log.NORMAL);
 				this.running = true;
 				this.run(tpfp);
 
