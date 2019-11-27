@@ -37,7 +37,7 @@ public class Data implements Serializable {
 	private transient ObservableList<TPFP> tpfps;
 	private Map<Testcase, List<SourceOrSink>> map;
 	private Map<SourceOrSink, Testcase> mapR;
-	private static String defaultFile = "/home/reprodroid/reprodroid/amordahl-BREW/BREW/data/data.ser";
+	private static String defaultFile = "data/data.ser";
 	private transient static Data instance = null;
 
 	private File currentSaveFile, lastLoadedFile, lastLoadedFolder;

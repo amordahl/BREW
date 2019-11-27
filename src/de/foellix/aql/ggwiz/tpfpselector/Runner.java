@@ -25,7 +25,9 @@ import de.foellix.aql.ggwiz.MenuBar;
 import de.foellix.aql.ggwiz.sourceandsinkselector.SourceOrSink;
 import de.foellix.aql.ggwiz.testcaseselector.Testcase;
 import de.foellix.aql.helper.Helper;
+import de.foellix.aql.system.BackupAndReset;
 import de.foellix.aql.system.IAnswerAvailable;
+import de.foellix.aql.system.Storage;
 import de.foellix.aql.system.System;
 import de.foellix.aql.ui.gui.FontAwesome;
 import javafx.application.Platform;
@@ -173,7 +175,8 @@ public class Runner implements IAnswerAvailable {
 				Log.msg("TruePositive(" + tpfp.isTruepositive() + ")", Log.NORMAL);
 				this.running = true;
 				this.run(tpfp);
-
+				Runner.resetWithExceptionHandling();
+				
 				int waitInterval = 50;
 				while (this.running == true) {
 					try {
@@ -201,6 +204,37 @@ public class Runner implements IAnswerAvailable {
 		}).start();
 	}
 
+	private static void resetWithExceptionHandling() {
+		boolean failed = false;
+		final File storageFolder = new File("data/storage");
+		try {
+			for (final File file : storageFolder.listFiles()) {
+				if (file.getName().endsWith(".xml")) {
+					if (file.exists() && !file.delete()) {
+						failed = true;
+					}
+				}
+			}
+		} catch (NullPointerException ex) {
+			Log.warning("No .xml files to delete");
+		}
+		File storageFile = new File(storageFolder, "storageParts.ser");
+		if (storageFile.exists() && !storageFile.delete()) {
+			failed = true;
+		}
+		storageFile = new File(storageFolder, "storagePreprocessors.ser");
+		if (storageFile.exists() && !storageFile.delete()) {
+			failed = true;
+		}
+
+		Storage.getInstance().reset();
+
+		if (failed) {
+			Log.warning("Could not completely reset storage!");
+		} else {
+			Log.msg("Successfully reset storage!", Log.NORMAL);
+		}
+	}
 	private void noGuiSave() {
 		Log.msg("Storing data", Log.NORMAL);
 		Data.getInstance().setCurrentSaveFile(new File("data/data.ser"));
