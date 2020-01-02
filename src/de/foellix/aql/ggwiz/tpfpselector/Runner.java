@@ -167,6 +167,7 @@ public class Runner implements IAnswerAvailable {
 		}
 
 		Log.msg("Runner started", Log.NORMAL);
+		Log.msg("Android Plaforms: " + ConfigHandler.getInstance().getConfig().getAndroidPlatforms(), Log.NORMAL);
 		this.time = Long.valueOf(java.lang.System.currentTimeMillis() / 1000L).toString();
 
 		new Thread(() -> {
