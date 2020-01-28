@@ -177,9 +177,9 @@ public class Runner implements IAnswerAvailable {
 				Log.msg("TruePositive(" + tpfp.isTruepositive() + ")", Log.NORMAL);
 				this.running = true;
 				Date dt = new Date();
-				long starttime = dt.getTime();
+				long starttime = Long.valueOf(java.lang.System.currentTimeMillis());
 				this.run(tpfp);
-				Log.msg("EXECUTION_TIME="+(starttime - dt.getTime()), Log.NORMAL);
+				Log.msg("EXECUTION_TIME="+(Long.valueOf(java.lang.System.currentTimeMillis()) - starttime), Log.NORMAL);
 				Runner.resetWithExceptionHandling();
 				
 				int waitInterval = 50;
