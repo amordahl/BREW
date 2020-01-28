@@ -179,7 +179,6 @@ public class Runner implements IAnswerAvailable {
 				Date dt = new Date();
 				long starttime = Long.valueOf(java.lang.System.currentTimeMillis());
 				this.run(tpfp);
-				Log.msg("EXECUTION_TIME="+(Long.valueOf(java.lang.System.currentTimeMillis()) - starttime), Log.NORMAL);
 				Runner.resetWithExceptionHandling();
 				
 				int waitInterval = 50;
@@ -193,6 +192,7 @@ public class Runner implements IAnswerAvailable {
 						Log.error("Runner thread interrupted.");
 					}
 				}
+				Log.msg("EXECUTION_TIME="+(Long.valueOf(java.lang.System.currentTimeMillis()) - starttime), Log.NORMAL);
 			}
 			if (this.parent == null) {
 				noGuiSave();
@@ -206,6 +206,7 @@ public class Runner implements IAnswerAvailable {
 					FontAwesome.getInstance().setGreen(MenuBar.playBtn);
 				});
 			}
+			
 		}).start();
 	}
 
