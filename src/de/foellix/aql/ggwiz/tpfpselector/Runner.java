@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
@@ -175,7 +176,10 @@ public class Runner implements IAnswerAvailable {
 				Log.msg("--BEGIN RUN--", Log.NORMAL);
 				Log.msg("TruePositive(" + tpfp.isTruepositive() + ")", Log.NORMAL);
 				this.running = true;
+				Date dt = new Date();
+				long starttime = dt.getTime();
 				this.run(tpfp);
+				Log.msg("EXECUTION_TIME="+(starttime - dt.getTime()), Log.NORMAL);
 				Runner.resetWithExceptionHandling();
 				
 				int waitInterval = 50;
